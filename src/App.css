@@ -7,6 +7,10 @@ body {
   background: linear-gradient(320deg,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
 }
 
+.appContainer {
+  padding: 15px 2rem;
+}
+
 button.btn {
   position: fixed;
   right: 20px;

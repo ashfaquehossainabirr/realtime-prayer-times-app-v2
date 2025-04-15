@@ -14,7 +14,7 @@ library.add(faSun, faMoon, faCloudSun, faCloudMoon, faPrayingHands);
 
 const styles = {
   appContainer: {
-    padding: '15px 2rem',
+    // padding: '15px 2rem',
     maxWidth: '700px',
     margin: 'auto',
     background: '#f7f9fc',
