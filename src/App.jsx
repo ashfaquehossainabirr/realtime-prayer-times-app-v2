@@ -142,7 +142,7 @@ function App() {
       )}
 
 
-      <div style={styles.appContainer}>
+      <div className='appContainer' style={styles.appContainer}>
         <h1 style={styles.title}>🕌 Prayer Times</h1>
         <DigitalClock is12HourFormat={is12HourFormat} />
         <TimeFormatToggle is12HourFormat={is12HourFormat} setIs12HourFormat={setIs12HourFormat} />

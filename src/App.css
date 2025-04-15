@@ -28,4 +28,8 @@ button.btn2 {
   button.btn2 {
     display: block;
   }
+
+  .appContainer {
+    padding: 15px 1rem;
+  }
 }
