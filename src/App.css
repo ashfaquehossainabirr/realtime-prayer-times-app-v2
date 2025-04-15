@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EEAECA;
+  background: linear-gradient(320deg,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+button.btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+button.btn2 {
+  display: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  button.btn {
+    display: none;
+  }
+
+  button.btn2 {
+    display: block;
+  }
+}
