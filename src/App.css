@@ -16,8 +16,8 @@ button.btn {
 button.btn2 {
   display: none;
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  right: 5px;
+  bottom: 5px;
 }
 
 @media screen and (max-width: 768px) {
