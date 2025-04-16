@@ -6,6 +6,10 @@ import TimeFormatToggle from './components/TimeFormatToggle';
 import Countdown from './components/Countdown';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSun, faMoon, faCloudSun, faCloudMoon, faPrayingHands } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+
+// For Local Prayer Times Data
+// import localPrayerTimes from './data/prayerTimes.json';
 
 // CSS Source
 import './App.css'
@@ -59,6 +63,23 @@ function App() {
   const [is12HourFormat, setIs12HourFormat] = useState(true);
   const [timeUntilNextPrayer, setTimeUntilNextPrayer] = useState('');
 
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  // console.log(Notification.permission)
+
+  const showPrayerNotification = (prayerName) => {
+    if (Notification.permission === 'granted') {
+      new Notification(`🕌 ${prayerName} time`, {
+        body: `It's time for ${prayerName} prayer.`,
+        icon: '/mosque-icon.png', // Optional icon (put in public/)
+      });
+    }
+  };
+
   const enableSound = () => {
     const audio = new Audio('/alert.mp3');
     audio.play()
@@ -77,9 +98,18 @@ function App() {
     const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Dhaka&country=Bangladesh');
     const data = await response.json();
     const times = data.data.timings;
+
+    console.log(data)
+    console.log(data.data.timings)
+
     setPrayerTimes(times);
     updatePrayerStates(times);
   };
+
+  // const fetchPrayerTimes = () => {
+  //   setPrayerTimes(localPrayerTimes);
+  //   updatePrayerStates(localPrayerTimes);
+  // };  
 
   const updatePrayerStates = (times) => {
     const now = new Date();
@@ -105,12 +135,24 @@ function App() {
     const now = new Date();
     const diff = nextTime - now;
   
-    if (diff <= 0) {
-      setTimeUntilNextPrayer("00:00:00");
+    if (diff <= 1000) {
+      setTimeUntilNextPrayer("🕌 Prayer time now");
       playAlertSound();
+      showPrayerNotification(nextPrayer);  // 🔔 Show notification
+
+      toast('🕌 Prayer time now', {
+        position: "top-right",
+        autoClose: 60000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });        
       return;
-    }
-  
+    } 
+
     const hours = String(Math.floor(diff / 3600000)).padStart(2, '0');
     const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
     const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
@@ -129,6 +171,20 @@ function App() {
 
   return (
     <div className="wrapper">
+
+    <ToastContainer
+    position="top-right"
+    autoClose={60000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick={false}
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="dark"
+    />
+
       {!soundEnabled && (
         <>
           <button className='btn' onClick={enableSound} style={styles.soundButton}>
@@ -155,7 +211,10 @@ function App() {
               prayerInfo={prayerInfo}
               is12HourFormat={is12HourFormat}
             />
-            <Countdown nextPrayer={nextPrayer} remainingTime={timeUntilNextPrayer} />
+            {(currentPrayer !== 'Isha' || new Date().getHours() >= 0 && new Date().getHours() < 6) && (
+              <Countdown nextPrayer={nextPrayer} remainingTime={timeUntilNextPrayer} />
+            )}
+
           </>
         )}
       </div>
