@@ -78,7 +78,7 @@ function App() {
         icon: '/mosque-icon.png', // Optional icon (put in public/)
       });
 
-      toast(`🕌 It's ${prayerName} Prayer time now`, {
+      toast(`🕌 It's ${prayerName} prayer time now`, {
         position: "top-right",
         autoClose: 60000,
         hideProgressBar: false,
@@ -89,7 +89,7 @@ function App() {
         theme: "dark",
         });   
     } else {
-      toast(`🕌 It's ${prayerName} Prayer time now`, {
+      toast(`🕌 It's ${prayerName} prayer time now`, {
         position: "top-right",
         autoClose: 60000,
         hideProgressBar: false,
