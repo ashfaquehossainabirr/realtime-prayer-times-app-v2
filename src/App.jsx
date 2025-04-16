@@ -99,8 +99,8 @@ function App() {
     const data = await response.json();
     const times = data.data.timings;
 
-    console.log(data)
-    console.log(data.data.timings)
+    // console.log(data)
+    // console.log(data.data.timings)
 
     setPrayerTimes(times);
     updatePrayerStates(times);
