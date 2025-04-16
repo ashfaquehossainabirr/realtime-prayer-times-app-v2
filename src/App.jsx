@@ -77,6 +77,28 @@ function App() {
         body: `It's time for ${prayerName} prayer.`,
         icon: '/mosque-icon.png', // Optional icon (put in public/)
       });
+
+      toast(`🕌 It's ${prayerName} Prayer time now`, {
+        position: "top-right",
+        autoClose: 60000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });   
+    } else {
+      toast(`🕌 It's ${prayerName} Prayer time now`, {
+        position: "top-right",
+        autoClose: 60000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   };
 
@@ -139,17 +161,7 @@ function App() {
       setTimeUntilNextPrayer("🕌 Prayer time now");
       playAlertSound();
       showPrayerNotification(nextPrayer);  // 🔔 Show notification
-
-      toast('🕌 Prayer time now', {
-        position: "top-right",
-        autoClose: 60000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });        
+       
       return;
     } 
 
